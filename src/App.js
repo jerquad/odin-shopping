@@ -5,6 +5,7 @@ import Nav from './components/Nav';
 import './components/style/App.css';
 
 function App() {
+
   return (
     <div className="App">
       <BrowserRouter>
