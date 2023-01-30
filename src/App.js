@@ -3,6 +3,8 @@ import Home from './components/Home';
 import Shop from './components/Shop';
 import Nav from './components/Nav';
 import './components/style/App.css';
+import './components/style/Product.css';
+import './components/style/Shop.css';
 
 function App() {
 

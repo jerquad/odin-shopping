@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Product from './Product';
 
 function Shop() {
     const [catalogue, setCatalogue] = useState([]);
@@ -18,10 +19,10 @@ function Shop() {
 
     const buildCatalogue = async () => {
         const products = await fetchItems();
-        // console.log(products);
-        const newCatalogue = products.products.map(({thumbnail, title, rating, price, discountPercentage}) => 
+        console.log(products);
+        const newCatalogue = products.products.map(({images, title, rating, price, discountPercentage}) => 
             ({
-                thumbnail: thumbnail,
+                thumbnail: images[0],
                 title: title,
                 rating: rating,
                 price: price,
@@ -31,7 +32,17 @@ function Shop() {
     }
 
     return (
-        <h1>THIS IS SHOP</h1>
+        <div className='shop-area'>
+            {catalogue.map((product, i) =>
+                <Product 
+                    key={i}
+                    thumbnail={product.thumbnail}
+                    title={product.title}
+                    rating={product.rating}
+                    price={product.price}
+                    discount={product.discount} />
+            )}
+        </div>
     )
 }
 

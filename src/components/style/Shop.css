@@ -1,0 +1,5 @@
+.shop-area {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    gap: 1rem;
+}
