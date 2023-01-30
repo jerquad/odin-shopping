@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
 import './style/Nav.css';
+import Icon from '@mdi/react';
+import { mdiCartOutline } from '@mdi/js';
 
-function Nav() {
+function Nav({ cartSize, handleCartClick }) {
     return (
         <nav id='site-nav'>
             <ul>
@@ -14,6 +16,9 @@ function Nav() {
                 <Link className='nav-link' to='/Shop'>
                     <li>SHOP</li>
                 </Link>
+                <div className='cart-box'>
+                    <Icon path={mdiCartOutline} size={1.5} />
+                </div>
             </ul>
         </nav>
     )

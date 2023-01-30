@@ -4,7 +4,7 @@ import Icon from '@mdi/react';
 import { mdiStar, mdiStarHalf } from '@mdi/js';
 
 
-function Product({thumbnail, title, rating, price, discount}) {
+function Product({thumbnail, title, rating, price, discount, cart}) {
     function makeStarbar() {
         const starbar= [];
         for (let i = 0; i < Math.floor(rating); i++) {
@@ -14,14 +14,16 @@ function Product({thumbnail, title, rating, price, discount}) {
         return starbar;
     }
 
+    const discoDollar = Math.floor(price - (price / discount));
+    let discoCents = Math.floor(100 *((price - (price / discount)) % 1));
+    discoCents = discoCents >= 10 ? discoCents : discoCents * 10
+
     function makePrice() {
-        const discoDollar = Math.floor(price - (price / discount));
-        const discoCents = Math.floor(100 *((price - (price / discount)) % 1));
         return (
             <div className='price-bar'>
                 <span className='price super-text'>$</span>
                 <span className='price'>{price >= 1 ? discoDollar : 0}</span>
-                <span className='price super-text'>{discoCents >= 10 ? discoCents : discoCents * 10}</span>
+                <span className='price super-text'>{discoCents}</span>
                 <span className='price-original'>{`($${Math.floor(price)}.${price % 1 === 0 ? '00' : price % 1})`}</span>
             </div>
             
@@ -36,7 +38,7 @@ function Product({thumbnail, title, rating, price, discount}) {
             <h3>{title}</h3>
             {makeStarbar()}
             {makePrice()}
-            <button>add to cart</button>
+            <button onClick={() => cart({thumb: thumbnail, title: title, price: `${discoDollar}${discoCents}` })}>add to cart</button>
         </div>
     )
 }

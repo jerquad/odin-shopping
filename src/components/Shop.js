@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import Product from './Product';
 
-function Shop() {
+function Shop({ cart }) {
     const [catalogue, setCatalogue] = useState([]);
 
     useEffect(() => {
         buildCatalogue();
     }, [])
 
-    useEffect(() => {
-        console.log(catalogue)
-    }, [catalogue]);
+    // useEffect(() => {
+    //     console.log(catalogue);
+    // }, [catalogue])
 
     const fetchItems = async () => {
         const fetchData = await fetch('https://dummyjson.com/products');
@@ -19,7 +19,6 @@ function Shop() {
 
     const buildCatalogue = async () => {
         const products = await fetchItems();
-        console.log(products);
         const newCatalogue = products.products.map(({images, title, rating, price, discountPercentage}) => 
             ({
                 thumbnail: images[0],
@@ -40,7 +39,8 @@ function Shop() {
                     title={product.title}
                     rating={product.rating}
                     price={product.price}
-                    discount={product.discount} />
+                    discount={product.discount}
+                    cart={cart} />
             )}
         </div>
     )
