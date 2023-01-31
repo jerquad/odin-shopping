@@ -1,0 +1,10 @@
+.cart-panel {
+    background-color: magenta;
+    grid-column: 2 / 3;
+    grid-row: 2 / -1;
+}
+
+.cart-item img {
+    max-height: 50px;
+    max-width: 50px;
+}

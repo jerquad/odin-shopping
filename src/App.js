@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 import Home from './components/Home';
 import Shop from './components/Shop';
 import Nav from './components/Nav';
+import Cart from './components/Cart';
 import './components/style/App.css';
 import './components/style/Product.css';
 import './components/style/Shop.css';
 import './components/style/Home.css';
+import './components/style/Cart.css';
 
 function App() {
   const [cart, setCart] = useState({size: 0, content: {}});
@@ -18,7 +20,7 @@ function App() {
 
   const handleCartClick = function() {
     if (cartElement === '') {
-      setCartElement(<div className='cart-cover'></div>);
+      setCartElement(<Cart content={cart.content} />);
       setInCart('cart-open');
     } else {
       setCartElement('');
