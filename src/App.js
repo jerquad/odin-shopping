@@ -16,6 +16,23 @@ function App() {
 
   const handleCartClick = function() { setInCart(!inCart) }
 
+  const adjustQuantity = function(item, amt) {
+    if (!item in cart.content
+        || cart.content[item].quantity + amt < 1) return;
+    const newCart = {...cart.content};
+    newCart[item].quantity += amt;
+    setCart({size: cart.size + amt, content: newCart})
+  }
+
+  const deleteFromCart = function(item) {
+    const newSize = cart.size - cart.content[item].quantity;
+    const newContent = {...cart.content};
+    delete newContent[item];
+    setCart({size: newSize, content: newContent});
+  }
+
+  const clearCart = function() { setCart({size: 0, content: {}}) }
+
   const handleAddToCart = function({thumb, title, price}) {
     let content = {...cart.content};
     if (title in content) {
@@ -26,7 +43,7 @@ function App() {
                     thumb: thumb, 
                     title: title, 
                     price: price, 
-                    quantity: 1
+                    quantity: 1,
                   }
                 }
     } 
@@ -36,7 +53,7 @@ function App() {
   return (
     <div className={`App ${inCart ? 'cart-open' : ''}`}>
       <BrowserRouter>
-        {inCart ? <Cart content={cart.content} /> : ''}
+        {inCart ? <Cart content={cart.content} adjust={adjustQuantity} remove={deleteFromCart} clear={clearCart}/> : ''}
         <Nav cartSize={cart.size} handleCartClick={handleCartClick} />
         <Routes>
           <Route path='/' element={<Home />} />
