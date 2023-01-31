@@ -12,9 +12,9 @@ import './components/style/Cart.css';
 
 function App() {
   const [cart, setCart] = useState({size: 0, content: {}});
-  const [inCart, setInCart] = useState('');
+  const [inCart, setInCart] = useState(false);
 
-  const handleCartClick = function() { setInCart(inCart === '' ? 'cart-open' : '') }
+  const handleCartClick = function() { setInCart(!inCart) }
 
   const handleAddToCart = function({thumb, title, price}) {
     let content = {...cart.content};
@@ -34,9 +34,9 @@ function App() {
   }
 
   return (
-    <div className={`App ${inCart}`}>
+    <div className={`App ${inCart ? 'cart-open' : ''}`}>
       <BrowserRouter>
-        {inCart !== '' ? <Cart content={cart.content} /> : ''}
+        {inCart ? <Cart content={cart.content} /> : ''}
         <Nav cartSize={cart.size} handleCartClick={handleCartClick} />
         <Routes>
           <Route path='/' element={<Home />} />
