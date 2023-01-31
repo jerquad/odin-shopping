@@ -7,3 +7,24 @@ body {
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
+
+.App {
+    outline: 1px solid purple;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr;
+    z-index: 0;
+}
+
+.cart-open {
+    grid-template-columns: 2fr 1fr;
+}
+
+
+
+.cart-cover {
+    background-color: magenta;
+    grid-column: 2 / 3;
+    grid-row: 2 / -1;
+}

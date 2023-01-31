@@ -6,19 +6,30 @@ import Nav from './components/Nav';
 import './components/style/App.css';
 import './components/style/Product.css';
 import './components/style/Shop.css';
+import './components/style/Home.css';
 
 function App() {
   const [cart, setCart] = useState({size: 0, content: {}});
+  const [cartElement, setCartElement] = useState('');
+  const [inCart, setInCart] = useState('');
+  // useEffect(() => {
+  //   console.log(cart);
+  // }, [cart])
 
-  useEffect(() => {
-    console.log(cart);
-  }, [cart])
+  const handleCartClick = function() {
+    if (cartElement === '') {
+      setCartElement(<div className='cart-cover'></div>);
+      setInCart('cart-open');
+    } else {
+      setCartElement('');
+      setInCart('');
+    }
+  }
 
   const handleAddToCart = function(product) {
     const id = product.title;
     let content = {...cart.content};
     if (id in content) {
-      console.log('grow');
       content[id].quantity += 1;
     } else {
       content = {...content, [id]: {thumb: product.thumb, title: product.title, price: product.price, quantity: 1}}
@@ -27,9 +38,10 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className={`App ${inCart}`}>
       <BrowserRouter>
-        <Nav />
+        {cartElement}
+        <Nav cartSize={cart.size} handleCartClick={handleCartClick} />
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/Shop' element={<Shop cart={handleAddToCart} />} />
