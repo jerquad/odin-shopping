@@ -12,29 +12,23 @@ import './components/style/Cart.css';
 
 function App() {
   const [cart, setCart] = useState({size: 0, content: {}});
-  const [cartElement, setCartElement] = useState('');
   const [inCart, setInCart] = useState('');
-  // useEffect(() => {
-  //   console.log(cart);
-  // }, [cart])
 
-  const handleCartClick = function() {
-    if (cartElement === '') {
-      setCartElement(<Cart content={cart.content} />);
-      setInCart('cart-open');
-    } else {
-      setCartElement('');
-      setInCart('');
-    }
-  }
+  const handleCartClick = function() { setInCart(inCart === '' ? 'cart-open' : '') }
 
-  const handleAddToCart = function(product) {
-    const id = product.title;
+  const handleAddToCart = function({thumb, title, price}) {
     let content = {...cart.content};
-    if (id in content) {
-      content[id].quantity += 1;
+    if (title in content) {
+      content[title].quantity += 1;
     } else {
-      content = {...content, [id]: {thumb: product.thumb, title: product.title, price: product.price, quantity: 1}}
+      content = {...content, 
+                 [title]: {
+                    thumb: thumb, 
+                    title: title, 
+                    price: price, 
+                    quantity: 1
+                  }
+                }
     } 
     setCart({size: cart.size + 1, content: content});
   }
@@ -42,7 +36,7 @@ function App() {
   return (
     <div className={`App ${inCart}`}>
       <BrowserRouter>
-        {cartElement}
+        {inCart !== '' ? <Cart content={cart.content} /> : ''}
         <Nav cartSize={cart.size} handleCartClick={handleCartClick} />
         <Routes>
           <Route path='/' element={<Home />} />
